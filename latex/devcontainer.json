@@ -1,7 +1,7 @@
 {
   "name": "LaTeX",
-  "image": "qmcgaw/latexdevcontainer:latest",
-  "postCreateCommand": "tlmgr repository set ftp://ftp.math.utah.edu/pub/tex/historic/systems/texlive/2025/tlnet-final && tlmgr update --self && tlmgr install texliveonfly && texhash",
+  "image": "ghcr.io/benni-tec/devcontainers-latex:main",
+  "postCreateCommand": "tlmgr update --self && texhash",
   "customizations": {
     "vscode": {
       "extensions": [
