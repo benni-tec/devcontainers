@@ -1,0 +1,32 @@
+{
+  "name": "LaTeX",
+  "image": "qmcgaw/latexdevcontainer:latest",
+  "postCreateCommand": "tlmgr repository set ftp://ftp.math.utah.edu/pub/tex/historic/systems/texlive/2025/tlnet-final && tlmgr update --self && tlmgr install texliveonfly && texhash",
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "James-Yu.latex-workshop"
+      ],
+      "settings": {
+        "latex-workshop.latex.recipe.default": "lualatex",
+        "latex-workshop.latex.tools": [
+          {
+            "name": "lualatex",
+            "command": "texliveonfly",
+            "args": [
+              "--compiler=lualatex",
+              "--arguments=-interaction=nonstopmode -synctex=1",
+              "%DOC%"
+            ]
+          }
+        ],
+        "latex-workshop.latex.recipes": [
+          {
+            "name": "lualatex",
+            "tools": ["lualatex"]
+          }
+        ]
+      }
+    }
+  }
+}
