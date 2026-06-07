@@ -1,7 +1,7 @@
 {
   "name": "LaTeX",
   "image": "ghcr.io/benni-tec/devcontainers-latex:main",
-  "postCreateCommand": "tlmgr update --self && texhash",
+  "postCreateCommand": "tlmgr update --self && tlmgr install biber biblatex-dw biblatex-juradiss babel-german && texhash",
   "customizations": {
     "vscode": {
       "extensions": [
@@ -11,22 +11,67 @@
         "latex-workshop.latex.recipe.default": "lualatex",
         "latex-workshop.latex.tools": [
           {
-            "name": "lualatex",
-            "command": "texliveonfly",
+            "name": "lualatex-onfly",
+            "command": "bash",
             "args": [
-              "--compiler=lualatex",
-              "--arguments=-interaction=nonstopmode -synctex=1",
+              "-c",
+              "texliveonfly --compiler=lualatex '--arguments=-interaction=nonstopmode -synctex=1' %DOC% || true"
+            ]
+          },
+          {
+            "name": "lualatex",
+            "command": "lualatex",
+            "args": [
+              "-interaction=nonstopmode",
+              "-synctex=1",
               "%DOC%"
+            ]
+          },
+          {
+            "name": "lualatex-noerror",
+            "command": "bash",
+            "args": [
+              "-c",
+              "lualatex -interaction=nonstopmode -synctex=1 %DOC% || true"
+            ]
+          },
+          {
+            "name": "biber",
+            "command": "biber",
+            "args": [
+              "%DOCFILE%"
             ]
           }
         ],
         "latex-workshop.latex.recipes": [
           {
             "name": "lualatex",
-            "tools": ["lualatex"]
+            "tools": [
+              "lualatex-onfly"
+            ]
+          },
+          {
+            "name": "lualatex ➞ biber ➞ lualatex×2",
+            "tools": [
+              "lualatex-onfly",
+              "biber",
+              "lualatex-noerror",
+              "lualatex"
+            ]
+          },
+          {
+            "name": "biber",
+            "tools": [
+              "biber"
+            ]
           }
         ]
       }
+    },
+    "jetbrains": {
+      "plugins": [
+        "nl.hannahsten.texifyidea"
+      ]
     }
   }
 }
