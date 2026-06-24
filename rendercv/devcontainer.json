@@ -1,0 +1,16 @@
+{
+    "name": "rendercv",
+    "image": "ghcr.io/benni-tec/devcontainers-rendercv:main",
+    "customizations": {
+        "vscode": {
+            "extensions": [
+                "redhat.vscode-yaml",
+                "wytheglobal.pdfmore"
+            ],
+            "settings": {
+                "files.autoSave": "afterDelay",
+                "files.autoSaveDelay": 10
+            }
+        }
+    }
+}

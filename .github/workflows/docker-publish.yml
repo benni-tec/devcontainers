@@ -15,7 +15,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        container: [latex]
+        container: [latex, rendercv]
     
     permissions:
       contents: read
