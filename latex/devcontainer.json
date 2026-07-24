@@ -1,7 +1,7 @@
 {
   "name": "LaTeX",
   "image": "ghcr.io/benni-tec/devcontainers-latex:main",
-  "postCreateCommand": "tlmgr update --self && tlmgr install biber biblatex-dw biblatex-juradiss babel-german && texhash",
+  "postCreateCommand": "tlmgr update --self && /usr/local/bin/setup_tlmgr.sh && texhash",
   "customizations": {
     "vscode": {
       "extensions": [
@@ -10,14 +10,6 @@
       "settings": {
         "latex-workshop.latex.recipe.default": "lualatex",
         "latex-workshop.latex.tools": [
-          {
-            "name": "lualatex-onfly",
-            "command": "bash",
-            "args": [
-              "-c",
-              "texliveonfly --compiler=lualatex '--arguments=-interaction=nonstopmode -synctex=1' %DOC% || true"
-            ]
-          },
           {
             "name": "lualatex",
             "command": "lualatex",
@@ -47,13 +39,13 @@
           {
             "name": "lualatex",
             "tools": [
-              "lualatex-onfly"
+              "lualatex"
             ]
           },
           {
-            "name": "lualatex ➞ biber ➞ lualatex×2",
+            "name": "lualatex ➞ biber ➞ lualatex x2",
             "tools": [
-              "lualatex-onfly",
+              "lualatex-noerror",
               "biber",
               "lualatex-noerror",
               "lualatex"

@@ -1,11 +1,7 @@
-FROM qmcgaw/latexdevcontainer:latest
+FROM registry.gitlab.com/islandoftex/images/texlive:TL2025-historic
 
 # set repo to TexLive 2025 and update tlmgr
-RUN tlmgr repository set https://ftp.tu-chemnitz.de/pub/tug/historic/systems/texlive/2025/tlnet-final && tlmgr update --self
+RUN tlmgr option repository https://ftp.tu-chemnitz.de/pub/tug/historic/systems/texlive/2025/tlnet-final && tlmgr update --self
 
-# install python (required for texliveonfly)
-RUN apt-get update && apt-get install -y python3 python-is-python3
-RUN 
-
-# install packages
-RUN tlmgr install texliveonfly && texhash
+COPY ./setup_tlmgr.sh /usr/local/bin/setup_tlmgr.sh
+RUN chmod +x /usr/local/bin/setup_tlmgr.sh
